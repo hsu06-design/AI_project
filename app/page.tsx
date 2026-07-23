@@ -18,6 +18,9 @@ export default function Home() {
   const [season, setSeason] = useState("");
   const [weather, setWeather] = useState("");
   const seasons = ["봄", "여름", "가을", "겨울"];
+  const [desiredStyle, setDesiredStyle] = useState("");
+  const [customStyle, setCustomStyle] = useState("");
+  const styles = ["편안한", "단정한", "화려한", "귀여운", "시크한"];
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -200,6 +203,42 @@ export default function Home() {
           {travelDate || season || weather
             ? [travelDate, season, weather].filter(Boolean).join(" · ")
             : "날짜와 날씨 선택을 기다리고 있어요."}
+        </div>
+      </section>
+
+      <section className="choice-sheet" aria-labelledby="style-title">
+        <span className="step-mark">04</span>
+        <h2 id="style-title">어떤 분위기로 입고 싶나요?</h2>
+        <p>오늘 표현하고 싶은 느낌을 하나 골라주세요.</p>
+        <div className="choice-grid">
+          {styles.map((item) => (
+            <button
+              key={item}
+              type="button"
+              aria-pressed={desiredStyle === item}
+              onClick={() => {
+                setDesiredStyle(item);
+                setCustomStyle("");
+              }}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+        <label className="custom-choice">
+          <span>다른 분위기를 원한다면</span>
+          <input
+            type="text"
+            value={customStyle}
+            placeholder="예: 빈티지한, 발랄한, 우아한"
+            onChange={(event) => {
+              setCustomStyle(event.target.value);
+              setDesiredStyle(event.target.value.trim());
+            }}
+          />
+        </label>
+        <div className="choice-note" aria-live="polite">
+          {desiredStyle ? `${desiredStyle} 분위기로 추천할게요.` : "분위기 선택을 기다리고 있어요."}
         </div>
       </section>
     </main>
