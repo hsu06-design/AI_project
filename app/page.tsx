@@ -8,9 +8,46 @@ import { Card, CardContent } from "@/components/ui/card";
 import { translations, type Language } from "./translations";
 import { selectionTranslations } from "./selection-translations";
 
+const countryStyleItems = [
+  {
+    image: "/country-styles/korea-hanbok.jpg",
+    outfit: "Hanbok",
+    source: "https://commons.wikimedia.org/wiki/File:Korean_women%27s_hanbok.jpg",
+  },
+  {
+    image: "/country-styles/japan-kimono.jpg",
+    outfit: "Kimono",
+    source: "https://commons.wikimedia.org/wiki/File:Japanese_Kimono.jpg",
+  },
+  {
+    image: "/country-styles/france-breton.jpg",
+    outfit: "Breton Folk Dress",
+    source: "https://commons.wikimedia.org/wiki/File:FIL_2009_-_Bretonne_en_costume_traditionel_1.JPG",
+  },
+  {
+    image: "/country-styles/india-sari.jpg",
+    outfit: "Sari",
+    source: "https://commons.wikimedia.org/wiki/File:Indian_Woman_in_Saree.jpg",
+  },
+  {
+    image: "/country-styles/thailand-chut-thai.jpg",
+    outfit: "Chut Thai Amarin",
+    source: "https://commons.wikimedia.org/wiki/File:Chut_Thai_Amarin.jpg",
+  },
+];
+
+const countryStyleCopy: Record<Language, { title: string; description: string; source: string }> = {
+  ko: { title: "나라별 문화 스타일", description: "각 나라의 문화와 이야기가 담긴 옷을 사진으로 둘러보세요.", source: "사진 출처" },
+  en: { title: "Cultural Styles", description: "Explore clothing that carries the culture and stories of each country.", source: "Photo source" },
+  my: { title: "နိုင်ငံအလိုက် ယဉ်ကျေးမှုဝတ်စုံ", description: "နိုင်ငံတစ်ခုချင်းစီ၏ ယဉ်ကျေးမှုနှင့် ဇာတ်လမ်းများပါသော အဝတ်အစားများကို ကြည့်ပါ။", source: "ဓာတ်ပုံရင်းမြစ်" },
+  vi: { title: "Trang phục văn hóa", description: "Khám phá trang phục mang văn hóa và câu chuyện của từng quốc gia.", source: "Nguồn ảnh" },
+  ja: { title: "国別カルチャースタイル", description: "それぞれの国の文化と物語が込められた服を写真で見てみましょう。", source: "写真出典" },
+  zh: { title: "各国文化服饰", description: "通过照片探索承载各国文化与故事的服装。", source: "图片来源" },
+};
+
 export default function Home() {
   const pageRef = useRef<HTMLElement>(null);
-  const [activeView, setActiveView] = useState<"home" | "closet">("home");
+  const [activeView, setActiveView] = useState<"home" | "closet" | "countryStyles">("home");
   const [closetPhotos, setClosetPhotos] = useState<Array<{ id: string; src: string; name: string }>>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -129,7 +166,13 @@ export default function Home() {
           >
             {t.closet}
           </a>
-          <a href="#country">{t.countryStyle}</a>
+          <a
+            href="#country-styles-page"
+            aria-current={activeView === "countryStyles" ? "page" : undefined}
+            onClick={() => setActiveView("countryStyles")}
+          >
+            {t.countryStyle}
+          </a>
           <a href="#saved-outfits">{t.saved}</a>
         </div>
         <button
@@ -407,6 +450,38 @@ export default function Home() {
             ))}
           </div>
         )}
+      </section>
+
+      <section
+        id="country-styles-page"
+        className="country-style-page"
+        hidden={activeView !== "countryStyles"}
+      >
+        <header className="country-style-heading">
+          <span>CULTURE LOOKBOOK</span>
+          <h1>{countryStyleCopy[language].title}</h1>
+          <p>{countryStyleCopy[language].description}</p>
+        </header>
+
+        <div className="country-style-grid">
+          {countryStyleItems.map((item, index) => (
+            <article className="country-style-card" key={item.outfit}>
+              <Image
+                src={item.image}
+                alt={`${s.countries[index]} ${item.outfit}`}
+                width={960}
+                height={1200}
+              />
+              <div>
+                <span>{s.countries[index]}</span>
+                <h2>{item.outfit}</h2>
+                <a href={item.source} target="_blank" rel="noreferrer">
+                  {countryStyleCopy[language].source} · Wikimedia Commons
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
     </main>
   );
