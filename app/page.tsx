@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function Home() {
   const pageRef = useRef<HTMLElement>(null);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const [destination, setDestination] = useState("");
   const [customDestination, setCustomDestination] = useState("");
   const destinations = ["여행", "축제", "결혼식", "데이트", "출근·학교"];
@@ -75,8 +76,51 @@ export default function Home() {
           <a href="#country">나라별 스타일</a>
           <a href="#saved-outfits">저장한 코디</a>
         </div>
-        <button className="settings-tab" type="button">SETTING</button>
+        <button
+          className="settings-tab"
+          type="button"
+          aria-expanded={settingsOpen}
+          aria-controls="settings-panel"
+          onClick={() => setSettingsOpen((open) => !open)}
+        >
+          SETTING
+        </button>
       </nav>
+
+      {settingsOpen && (
+        <aside id="settings-panel" className="settings-panel" aria-label="설정">
+          <div className="settings-heading">
+            <div>
+              <span>SETTING</span>
+              <h2>나에게 맞게 바꾸기</h2>
+            </div>
+            <button type="button" aria-label="설정 닫기" onClick={() => setSettingsOpen(false)}>
+              닫기
+            </button>
+          </div>
+          <div className="setting-row">
+            <label htmlFor="language-setting">언어</label>
+            <select id="language-setting" defaultValue="ko">
+              <option value="ko">한국어</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+          <div className="setting-row">
+            <span>화면 모드</span>
+            <div className="mode-options" aria-label="화면 모드 선택">
+              <button type="button" aria-pressed="true">DAY</button>
+              <button type="button" aria-pressed="false">NIGHT</button>
+            </div>
+          </div>
+          <div className="setting-row account-row">
+            <div>
+              <span>내 계정</span>
+              <p>저장한 코디와 내 옷장을 관리해요.</p>
+            </div>
+            <button type="button">계정 열기</button>
+          </div>
+        </aside>
+      )}
 
       <section id="home" className="hero-layout">
         <header>

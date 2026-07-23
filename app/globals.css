@@ -103,6 +103,101 @@ body {
   outline-offset: 4px;
 }
 
+.settings-panel {
+  position: fixed;
+  z-index: 30;
+  top: 82px;
+  right: clamp(18px, 4vw, 64px);
+  width: min(calc(100% - 36px), 420px);
+  padding: 28px;
+  border: 1px solid #cbb9a7;
+  background: #fffaf0;
+  box-shadow: 0 24px 70px rgba(61, 47, 39, 0.2);
+  font-family: Arial, sans-serif;
+}
+
+.settings-heading,
+.setting-row,
+.mode-options {
+  display: flex;
+  align-items: center;
+}
+
+.settings-heading {
+  justify-content: space-between;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #ded0c1;
+}
+
+.settings-heading span,
+.setting-row > label,
+.setting-row > span,
+.account-row span {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+.settings-heading h2 {
+  margin: 7px 0 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.settings-heading button,
+.mode-options button,
+.account-row button {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid #b9a593;
+  background: transparent;
+  color: var(--brown);
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.setting-row {
+  justify-content: space-between;
+  min-height: 76px;
+  gap: 20px;
+  border-bottom: 1px solid #e2d7ca;
+}
+
+.setting-row select {
+  min-height: 38px;
+  padding: 0 34px 0 12px;
+  border: 1px solid #cbb9a7;
+  background: #fffdf8;
+  color: var(--brown);
+}
+
+.mode-options {
+  gap: 6px;
+}
+
+.mode-options button[aria-pressed="true"] {
+  background: var(--brown);
+  color: #fffaf0;
+}
+
+.account-row {
+  min-height: 92px;
+  border-bottom: 0;
+}
+
+.account-row p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.settings-panel button:focus-visible,
+.settings-panel select:focus-visible {
+  outline: 2px solid #765f50;
+  outline-offset: 3px;
+}
+
 .hero-layout {
   display: grid;
   grid-template-columns: minmax(300px, 0.8fr) minmax(480px, 1.2fr);
@@ -410,6 +505,13 @@ h1 {
 
   .nav-links a::after {
     bottom: 8px;
+  }
+
+  .settings-panel {
+    top: 112px;
+    right: 12px;
+    width: calc(100% - 24px);
+    padding: 22px;
   }
 
   .hero-layout {
