@@ -69,6 +69,66 @@ const countryStyleItems = [
     country: { ko: "멕시코", en: "Mexico", my: "မက္ကဆီကို", vi: "Mexico", ja: "メキシコ", zh: "墨西哥" },
     source: "https://commons.wikimedia.org/wiki/File:Traditional_indigenous_clothing_of_Mexico.jpg",
   },
+  {
+    image: "/country-styles/mongolia-deel.jpg",
+    outfit: "Deel",
+    country: { ko: "몽골", en: "Mongolia", my: "မွန်ဂိုလီးယား", vi: "Mông Cổ", ja: "モンゴル", zh: "蒙古" },
+    source: "https://commons.wikimedia.org/wiki/File:Mongolwomen.jpg",
+  },
+  {
+    image: "/country-styles/philippines-terno.jpg",
+    outfit: "Terno",
+    country: { ko: "필리핀", en: "Philippines", my: "ဖိလစ်ပိုင်", vi: "Philippines", ja: "フィリピン", zh: "菲律宾" },
+    source: "https://commons.wikimedia.org/wiki/File:Catriona_Gray_-_NCCA_Ternong_Terno_05.jpg",
+  },
+  {
+    image: "/country-styles/cambodia-sampot.jpg",
+    outfit: "Sampot",
+    country: { ko: "캄보디아", en: "Cambodia", my: "ကမ္ဘောဒီးယား", vi: "Campuchia", ja: "カンボジア", zh: "柬埔寨" },
+    source: "https://commons.wikimedia.org/wiki/File:Cambodia_traditional_costume_1.jpg",
+  },
+  {
+    image: "/country-styles/bhutan-kira.jpg",
+    outfit: "Kira & Tego",
+    country: { ko: "부탄", en: "Bhutan", my: "ဘူတန်", vi: "Bhutan", ja: "ブータン", zh: "不丹" },
+    source: "https://commons.wikimedia.org/wiki/File:Bhutanese_women_at_festival_wearing_Kira_and_Tego.jpg",
+  },
+  {
+    image: "/country-styles/nepal-cultural.jpg",
+    outfit: "Nepali Cultural Dress",
+    country: { ko: "네팔", en: "Nepal", my: "နီပေါ", vi: "Nepal", ja: "ネパール", zh: "尼泊尔" },
+    source: "https://commons.wikimedia.org/wiki/File:Nepali_Cultural_Dress.jpg",
+  },
+  {
+    image: "/country-styles/morocco-kaftan.jpg",
+    outfit: "Moroccan Kaftan",
+    country: { ko: "모로코", en: "Morocco", my: "မော်ရိုကို", vi: "Maroc", ja: "モロッコ", zh: "摩洛哥" },
+    source: "https://commons.wikimedia.org/wiki/File:Woman_in_a_traditional_Moroccan_dress.jpg",
+  },
+  {
+    image: "/country-styles/germany-dirndl.jpg",
+    outfit: "Dirndl",
+    country: { ko: "독일", en: "Germany", my: "ဂျာမနီ", vi: "Đức", ja: "ドイツ", zh: "德国" },
+    source: "https://commons.wikimedia.org/wiki/File:Young_lady_wearing_a_traditional_German_dress.jpg",
+  },
+  {
+    image: "/country-styles/greece-costume.jpg",
+    outfit: "Greek Folk Dress",
+    country: { ko: "그리스", en: "Greece", my: "ဂရိ", vi: "Hy Lạp", ja: "ギリシャ", zh: "希腊" },
+    source: "https://commons.wikimedia.org/wiki/File:Traditional_women%27s_costume_1.jpg",
+  },
+  {
+    image: "/country-styles/nigeria-gele.jpg",
+    outfit: "Gele & Guinea Cloth",
+    country: { ko: "나이지리아", en: "Nigeria", my: "နိုင်ဂျီးရီးယား", vi: "Nigeria", ja: "ナイジェリア", zh: "尼日利亚" },
+    source: "https://commons.wikimedia.org/wiki/File:A_Nigerian_woman_in_a_Guinea_clothing_and_the_Gele_headtie.jpg",
+  },
+  {
+    image: "/country-styles/turkey-traditional.jpg",
+    outfit: "Anatolian Village Dress",
+    country: { ko: "튀르키예", en: "Türkiye", my: "တူရကီ", vi: "Thổ Nhĩ Kỳ", ja: "トルコ", zh: "土耳其" },
+    source: "https://commons.wikimedia.org/wiki/File:Traditional_clothing_of_Turkish_women.jpg",
+  },
 ];
 
 const countryStyleCopy: Record<Language, { title: string; description: string; source: string; search: string; empty: string }> = {

@@ -286,8 +286,8 @@ body {
 
 .country-style-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 34px 18px;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 28px 14px;
 }
 
 .country-style-card img {
@@ -305,7 +305,7 @@ body {
 
 .country-style-card h2 {
   margin: 6px 0 10px;
-  font-size: clamp(23px, 2.5vw, 38px);
+  font-size: clamp(18px, 1.8vw, 26px);
   font-weight: 400;
 }
 
@@ -825,8 +825,8 @@ h1 {
   }
 
   .country-style-grid {
-    grid-template-columns: 1fr;
-    gap: 34px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px 10px;
   }
 
   .country-style-card,
