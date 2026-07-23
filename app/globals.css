@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+:root {
+  --cream: #f7f0e6;
+  --brown: #55453c;
+  --muted: #927e70;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--brown);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.home {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 32px;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(44px, 9vw, 86px);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+}
+
+.subtitle {
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+}
+
+.closet-card {
+  width: min(100%, 430px);
+  margin-top: 64px;
+  overflow: hidden;
+  border: 1px solid #dfd1c2;
+  border-radius: 22px;
+  background: #fffaf3;
+  text-align: left;
+  box-shadow: 0 18px 45px rgba(85, 69, 60, 0.09);
+}
+
+.closet-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.card-copy {
+  padding: 20px 22px 22px;
+  font-family: Arial, sans-serif;
+}
+
+.card-copy span {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+}
+
+.card-copy p {
+  margin: 8px 0 0;
+  font-size: 16px;
+}
