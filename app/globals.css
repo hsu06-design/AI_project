@@ -108,3 +108,108 @@ h1 {
   font-family: Arial, sans-serif;
   font-size: 12px;
 }
+
+.choice-sheet {
+  width: min(100%, 560px);
+  margin-top: 90px;
+  padding: 34px 30px 30px;
+  border: 1px solid #d8c8b6;
+  background: rgba(255, 250, 240, 0.82);
+  box-shadow: 3px 5px 0 #e5d7c7;
+  text-align: left;
+}
+
+.step-mark {
+  color: var(--muted);
+  font-family: "Segoe Print", cursive;
+  font-size: 13px;
+}
+
+.choice-sheet h2 {
+  margin: 8px 0 0;
+  font-size: 27px;
+  font-weight: 400;
+}
+
+.choice-sheet > p {
+  margin: 8px 0 24px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
+
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.choice-grid button {
+  min-height: 48px;
+  border: 1px solid #d9cab9;
+  border-radius: 3px;
+  background: #fffdf8;
+  color: var(--brown);
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.choice-grid button:hover {
+  background: #f2e7d8;
+}
+
+.choice-grid button[aria-pressed="true"] {
+  border-color: #8e7666;
+  background: #e8d8c5;
+}
+
+.choice-grid button:focus-visible {
+  outline: 2px solid #765f50;
+  outline-offset: 3px;
+}
+
+.choice-note {
+  min-height: 18px;
+  margin-top: 20px;
+  color: var(--muted);
+  font-family: "Segoe Print", cursive;
+  font-size: 12px;
+}
+
+.custom-choice {
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+.custom-choice input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 0;
+  border-bottom: 1px solid #bda996;
+  background: transparent;
+  color: var(--brown);
+  font: inherit;
+  font-size: 14px;
+}
+
+.custom-choice input:focus {
+  outline: 2px solid #765f50;
+  outline-offset: 3px;
+}
+
+@media (max-width: 520px) {
+  .choice-sheet {
+    padding: 28px 20px 24px;
+  }
+
+  .choice-grid {
+    grid-template-columns: 1fr;
+  }
+}
