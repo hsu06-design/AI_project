@@ -12,6 +12,7 @@ export default function Home() {
   const pageRef = useRef<HTMLElement>(null);
   const [activeView, setActiveView] = useState<"home" | "closet">("home");
   const [closetPhotos, setClosetPhotos] = useState<Array<{ id: string; src: string; name: string }>>([]);
+  const [isUploading, setIsUploading] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [language, setLanguage] = useState<Language>("ko");
@@ -29,24 +30,30 @@ export default function Home() {
 
   const handlePhotoUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files ?? []).filter((file) => file.type.startsWith("image/"));
-    const newPhotos = await Promise.all(
-      files.map(
-        (file, index) =>
-          new Promise<{ id: string; src: string; name: string }>((resolve) => {
-            const reader = new FileReader();
-            reader.onload = () =>
-              resolve({
-                id: `${file.name}-${file.lastModified}-${index}`,
-                src: String(reader.result),
-                name: file.name,
-              });
-            reader.readAsDataURL(file);
-          }),
-      ),
-    );
-    setClosetPhotos((current) => [...current, ...newPhotos]);
+    if (files.length === 0) return;
+
+    const formData = new FormData();
+    files.forEach((file) => formData.append("photos", file));
+    setIsUploading(true);
+
+    try {
+      const response = await fetch("/api/closet", { method: "POST", body: formData });
+      if (!response.ok) throw new Error("Upload failed");
+      const data = await response.json();
+      setClosetPhotos(data.photos);
+    } finally {
+      setIsUploading(false);
+    }
+
     event.target.value = "";
   };
+
+  useEffect(() => {
+    fetch("/api/closet")
+      .then((response) => response.json())
+      .then((data) => setClosetPhotos(data.photos ?? []))
+      .catch(() => setClosetPhotos([]));
+  }, []);
 
   useEffect(() => {
     document.documentElement.lang = language;
@@ -372,12 +379,13 @@ export default function Home() {
             <p>{t.closetPageDescription}</p>
           </div>
           <label className="photo-upload-button">
-            {t.addPhotos}
+            {isUploading ? t.uploadingPhotos : t.addPhotos}
             <input
               type="file"
               accept="image/*"
               capture="environment"
               multiple
+              disabled={isUploading}
               onChange={handlePhotoUpload}
             />
           </label>

@@ -23,6 +23,7 @@ export const translations = {
     closetPageDescription: "가지고 있는 옷을 직접 촬영하거나 사진으로 추가해요.",
     closetEmpty: "아직 등록한 옷이 없어요.",
     addPhotos: "사진 찍기 · 업로드",
+    uploadingPhotos: "사진 저장 중…",
     uploadHint: "여러 장을 한 번에 골라도 좋아요.",
   },
   en: {
@@ -45,6 +46,7 @@ export const translations = {
     closetPageDescription: "Take a photo or add pictures of clothes you own.",
     closetEmpty: "Your closet is empty.",
     addPhotos: "Take photo · Upload",
+    uploadingPhotos: "Saving photos…",
     uploadHint: "You can choose multiple photos at once.",
   },
   my: {
@@ -67,6 +69,7 @@ export const translations = {
     closetPageDescription: "ကိုယ်ပိုင်အဝတ်တွေကို ဓာတ်ပုံရိုက်ပြီး ထည့်ပါ။",
     closetEmpty: "အဝတ်မထည့်ရသေးပါ။",
     addPhotos: "ဓာတ်ပုံရိုက် · တင်ရန်",
+    uploadingPhotos: "ဓာတ်ပုံ သိမ်းနေသည်…",
     uploadHint: "ဓာတ်ပုံများစွာကို တစ်ပြိုင်နက် ရွေးနိုင်ပါတယ်။",
   },
   vi: {
@@ -89,6 +92,7 @@ export const translations = {
     closetPageDescription: "Chụp hoặc thêm ảnh những món đồ bạn đang có.",
     closetEmpty: "Tủ đồ của bạn đang trống.",
     addPhotos: "Chụp ảnh · Tải lên",
+    uploadingPhotos: "Đang lưu ảnh…",
     uploadHint: "Bạn có thể chọn nhiều ảnh cùng lúc.",
   },
   ja: {
@@ -111,6 +115,7 @@ export const translations = {
     closetPageDescription: "持っている服を撮影するか、写真から追加します。",
     closetEmpty: "まだ服が登録されていません。",
     addPhotos: "撮影・アップロード",
+    uploadingPhotos: "写真を保存中…",
     uploadHint: "複数の写真を一度に選べます。",
   },
   zh: {
@@ -133,6 +138,7 @@ export const translations = {
     closetPageDescription: "拍摄或添加你已有衣物的照片。",
     closetEmpty: "衣橱里还没有衣物。",
     addPhotos: "拍照 · 上传",
+    uploadingPhotos: "正在保存照片…",
     uploadHint: "可以一次选择多张照片。",
   },
 } satisfies Record<Language, Record<string, ReactNode>>;
