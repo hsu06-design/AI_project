@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Card, CardContent } from "@/components/ui/card";
 import { translations, type Language } from "./translations";
+import { selectionTranslations } from "./selection-translations";
 
 export default function Home() {
   const pageRef = useRef<HTMLElement>(null);
@@ -13,22 +14,27 @@ export default function Home() {
   const [isDark, setIsDark] = useState(false);
   const [language, setLanguage] = useState<Language>("ko");
   const t = translations[language];
+  const s = selectionTranslations[language];
   const [destination, setDestination] = useState("");
   const [customDestination, setCustomDestination] = useState("");
-  const destinations = ["여행", "축제", "결혼식", "데이트", "출근·학교"];
   const [country, setCountry] = useState("");
   const [customCountry, setCustomCountry] = useState("");
-  const countries = ["한국", "일본", "프랑스", "인도", "태국"];
   const [travelDate, setTravelDate] = useState("");
   const [season, setSeason] = useState("");
   const [weather, setWeather] = useState("");
-  const seasons = ["봄", "여름", "가을", "겨울"];
   const [desiredStyle, setDesiredStyle] = useState("");
   const [customStyle, setCustomStyle] = useState("");
-  const styles = ["편안한", "단정한", "화려한", "귀여운", "시크한"];
 
   useEffect(() => {
     document.documentElement.lang = language;
+    setDestination("");
+    setCustomDestination("");
+    setCountry("");
+    setCustomCountry("");
+    setSeason("");
+    setWeather("");
+    setDesiredStyle("");
+    setCustomStyle("");
   }, [language]);
 
   useLayoutEffect(() => {
@@ -168,10 +174,10 @@ export default function Home() {
 
       <section id="recommendation" className="choice-sheet" aria-labelledby="destination-title">
         <span className="step-mark">01</span>
-        <h2 id="destination-title">어디에 갈 예정인가요?</h2>
-        <p>오늘의 장소를 하나 골라주세요.</p>
+        <h2 id="destination-title">{s.destinationTitle}</h2>
+        <p>{s.destinationDescription}</p>
         <div className="choice-grid">
-          {destinations.map((item) => (
+          {s.destinations.map((item) => (
             <button
               key={item}
               type="button"
@@ -186,11 +192,11 @@ export default function Home() {
           ))}
         </div>
         <label className="custom-choice">
-          <span>다른 장소가 있다면</span>
+          <span>{s.customDestinationLabel}</span>
           <input
             type="text"
             value={customDestination}
-            placeholder="예: 미술관, 캠핑, 콘서트"
+            placeholder={s.customDestinationPlaceholder}
             onChange={(event) => {
               setCustomDestination(event.target.value);
               setDestination(event.target.value.trim());
@@ -198,16 +204,18 @@ export default function Home() {
           />
         </label>
         <div className="choice-note" aria-live="polite">
-          {destination ? `${destination}에 어울리는 옷을 찾아볼게요.` : "선택을 기다리고 있어요."}
+          {destination
+            ? s.destinationSelected.replace("{value}", destination)
+            : s.destinationWaiting}
         </div>
       </section>
 
       <section id="country" className="choice-sheet" aria-labelledby="country-title">
         <span className="step-mark">02</span>
-        <h2 id="country-title">어느 나라에서 입을까요?</h2>
-        <p>현지 분위기와 문화를 코디에 반영할게요.</p>
+        <h2 id="country-title">{s.countryTitle}</h2>
+        <p>{s.countryDescription}</p>
         <div className="choice-grid">
-          {countries.map((item) => (
+          {s.countries.map((item) => (
             <button
               key={item}
               type="button"
@@ -222,11 +230,11 @@ export default function Home() {
           ))}
         </div>
         <label className="custom-choice">
-          <span>다른 나라가 있다면</span>
+          <span>{s.customCountryLabel}</span>
           <input
             type="text"
             value={customCountry}
-            placeholder="예: 이탈리아, 베트남, 미국"
+            placeholder={s.customCountryPlaceholder}
             onChange={(event) => {
               setCustomCountry(event.target.value);
               setCountry(event.target.value.trim());
@@ -234,17 +242,17 @@ export default function Home() {
           />
         </label>
         <div className="choice-note" aria-live="polite">
-          {country ? `${country}의 분위기와 문화를 살펴볼게요.` : "나라 선택을 기다리고 있어요."}
+          {country ? s.countrySelected.replace("{value}", country) : s.countryWaiting}
         </div>
       </section>
 
       <section className="choice-sheet" aria-labelledby="weather-title">
         <span className="step-mark">03</span>
-        <h2 id="weather-title">언제, 어떤 날씨에 입을까요?</h2>
-        <p>날씨에 편안한 소재와 겹쳐 입기를 추천할게요.</p>
+        <h2 id="weather-title">{s.weatherTitle}</h2>
+        <p>{s.weatherDescription}</p>
         <div className="detail-fields">
           <label className="field-label">
-            <span>날짜</span>
+            <span>{s.date}</span>
             <input
               type="date"
               value={travelDate}
@@ -252,9 +260,9 @@ export default function Home() {
             />
           </label>
           <fieldset>
-            <legend>계절</legend>
+            <legend>{s.season}</legend>
             <div className="choice-grid season-grid">
-              {seasons.map((item) => (
+              {s.seasons.map((item) => (
                 <button
                   key={item}
                   type="button"
@@ -267,30 +275,28 @@ export default function Home() {
             </div>
           </fieldset>
           <label className="field-label">
-            <span>예상 날씨</span>
+            <span>{s.expectedWeather}</span>
             <select value={weather} onChange={(event) => setWeather(event.target.value)}>
-              <option value="">골라주세요</option>
-              <option value="맑고 따뜻함">맑고 따뜻함</option>
-              <option value="덥고 습함">덥고 습함</option>
-              <option value="선선함">선선함</option>
-              <option value="춥고 건조함">춥고 건조함</option>
-              <option value="비 또는 눈">비 또는 눈</option>
+              <option value="">{s.choose}</option>
+              {s.weatherOptions.map((item) => (
+                <option key={item} value={item}>{item}</option>
+              ))}
             </select>
           </label>
         </div>
         <div className="choice-note" aria-live="polite">
           {travelDate || season || weather
             ? [travelDate, season, weather].filter(Boolean).join(" · ")
-            : "날짜와 날씨 선택을 기다리고 있어요."}
+            : s.weatherWaiting}
         </div>
       </section>
 
       <section id="saved-outfits" className="choice-sheet" aria-labelledby="style-title">
         <span className="step-mark">04</span>
-        <h2 id="style-title">어떤 분위기로 입고 싶나요?</h2>
-        <p>오늘 표현하고 싶은 느낌을 하나 골라주세요.</p>
+        <h2 id="style-title">{s.styleTitle}</h2>
+        <p>{s.styleDescription}</p>
         <div className="choice-grid">
-          {styles.map((item) => (
+          {s.styles.map((item) => (
             <button
               key={item}
               type="button"
@@ -305,11 +311,11 @@ export default function Home() {
           ))}
         </div>
         <label className="custom-choice">
-          <span>다른 분위기를 원한다면</span>
+          <span>{s.customStyleLabel}</span>
           <input
             type="text"
             value={customStyle}
-            placeholder="예: 빈티지한, 발랄한, 우아한"
+            placeholder={s.customStylePlaceholder}
             onChange={(event) => {
               setCustomStyle(event.target.value);
               setDesiredStyle(event.target.value.trim());
@@ -317,7 +323,7 @@ export default function Home() {
           />
         </label>
         <div className="choice-note" aria-live="polite">
-          {desiredStyle ? `${desiredStyle} 분위기로 추천할게요.` : "분위기 선택을 기다리고 있어요."}
+          {desiredStyle ? s.styleSelected.replace("{value}", desiredStyle) : s.styleWaiting}
         </div>
       </section>
     </main>
