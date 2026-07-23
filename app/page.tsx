@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function Home() {
   return (
@@ -9,7 +10,7 @@ export default function Home() {
         <p className="subtitle">내 옷장에서 찾는 오늘의 코디</p>
       </header>
 
-      <article className="closet-card">
+      <Card className="closet-card">
         <Image
           src="/cream-tie-blouse.png"
           alt="크림색 리본 블라우스"
@@ -17,11 +18,12 @@ export default function Home() {
           height={1448}
           priority
         />
-        <div className="card-copy">
+        <CardContent className="card-copy">
           <span>TOP 01</span>
           <p>크림 리본 블라우스</p>
-        </div>
-      </article>
+          <small>따뜻한 봄날의 데일리 룩</small>
+        </CardContent>
+      </Card>
     </main>
   );
 }
