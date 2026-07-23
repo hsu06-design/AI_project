@@ -12,37 +12,72 @@ const countryStyleItems = [
   {
     image: "/country-styles/korea-hanbok.jpg",
     outfit: "Hanbok",
+    country: { ko: "한국", en: "Korea", my: "ကိုရီးယား", vi: "Hàn Quốc", ja: "韓国", zh: "韩国" },
     source: "https://commons.wikimedia.org/wiki/File:Korean_women%27s_hanbok.jpg",
   },
   {
     image: "/country-styles/japan-kimono.jpg",
     outfit: "Kimono",
+    country: { ko: "일본", en: "Japan", my: "ဂျပန်", vi: "Nhật Bản", ja: "日本", zh: "日本" },
     source: "https://commons.wikimedia.org/wiki/File:Japanese_Kimono.jpg",
   },
   {
     image: "/country-styles/france-breton.jpg",
     outfit: "Breton Folk Dress",
+    country: { ko: "프랑스", en: "France", my: "ပြင်သစ်", vi: "Pháp", ja: "フランス", zh: "法国" },
     source: "https://commons.wikimedia.org/wiki/File:FIL_2009_-_Bretonne_en_costume_traditionel_1.JPG",
   },
   {
     image: "/country-styles/india-sari.jpg",
     outfit: "Sari",
+    country: { ko: "인도", en: "India", my: "အိန္ဒိယ", vi: "Ấn Độ", ja: "インド", zh: "印度" },
     source: "https://commons.wikimedia.org/wiki/File:Indian_Woman_in_Saree.jpg",
   },
   {
     image: "/country-styles/thailand-chut-thai.jpg",
     outfit: "Chut Thai Amarin",
+    country: { ko: "태국", en: "Thailand", my: "ထိုင်း", vi: "Thái Lan", ja: "タイ", zh: "泰国" },
     source: "https://commons.wikimedia.org/wiki/File:Chut_Thai_Amarin.jpg",
+  },
+  {
+    image: "/country-styles/myanmar-longyi.jpg",
+    outfit: "Longyi",
+    country: { ko: "미얀마", en: "Myanmar", my: "မြန်မာ", vi: "Myanmar", ja: "ミャンマー", zh: "缅甸" },
+    source: "https://commons.wikimedia.org/wiki/File:Longyi_(cropped).jpg",
+  },
+  {
+    image: "/country-styles/vietnam-ao-dai.jpg",
+    outfit: "Áo Dài",
+    country: { ko: "베트남", en: "Vietnam", my: "ဗီယက်နမ်", vi: "Việt Nam", ja: "ベトナム", zh: "越南" },
+    source: "https://commons.wikimedia.org/wiki/File:Woman_wearing_Ao_Dai.jpg",
+  },
+  {
+    image: "/country-styles/china-hanfu.jpg",
+    outfit: "Hanfu",
+    country: { ko: "중국", en: "China", my: "တရုတ်", vi: "Trung Quốc", ja: "中国", zh: "中国" },
+    source: "https://commons.wikimedia.org/wiki/File:A_Cantonese_woman_in_Hanfu.jpg",
+  },
+  {
+    image: "/country-styles/indonesia-kebaya.jpg",
+    outfit: "Kebaya",
+    country: { ko: "인도네시아", en: "Indonesia", my: "အင်ဒိုနီးရှား", vi: "Indonesia", ja: "インドネシア", zh: "印度尼西亚" },
+    source: "https://commons.wikimedia.org/wiki/File:Kebaya_Nusantara_Indonesia.jpg",
+  },
+  {
+    image: "/country-styles/mexico-traditional.jpg",
+    outfit: "Traditional Indigenous Dress",
+    country: { ko: "멕시코", en: "Mexico", my: "မက္ကဆီကို", vi: "Mexico", ja: "メキシコ", zh: "墨西哥" },
+    source: "https://commons.wikimedia.org/wiki/File:Traditional_indigenous_clothing_of_Mexico.jpg",
   },
 ];
 
-const countryStyleCopy: Record<Language, { title: string; description: string; source: string }> = {
-  ko: { title: "나라별 문화 스타일", description: "각 나라의 문화와 이야기가 담긴 옷을 사진으로 둘러보세요.", source: "사진 출처" },
-  en: { title: "Cultural Styles", description: "Explore clothing that carries the culture and stories of each country.", source: "Photo source" },
-  my: { title: "နိုင်ငံအလိုက် ယဉ်ကျေးမှုဝတ်စုံ", description: "နိုင်ငံတစ်ခုချင်းစီ၏ ယဉ်ကျေးမှုနှင့် ဇာတ်လမ်းများပါသော အဝတ်အစားများကို ကြည့်ပါ။", source: "ဓာတ်ပုံရင်းမြစ်" },
-  vi: { title: "Trang phục văn hóa", description: "Khám phá trang phục mang văn hóa và câu chuyện của từng quốc gia.", source: "Nguồn ảnh" },
-  ja: { title: "国別カルチャースタイル", description: "それぞれの国の文化と物語が込められた服を写真で見てみましょう。", source: "写真出典" },
-  zh: { title: "各国文化服饰", description: "通过照片探索承载各国文化与故事的服装。", source: "图片来源" },
+const countryStyleCopy: Record<Language, { title: string; description: string; source: string; search: string; empty: string }> = {
+  ko: { title: "나라별 문화 스타일", description: "각 나라의 문화와 이야기가 담긴 옷을 사진으로 둘러보세요.", source: "사진 출처", search: "나라 또는 의상 이름 검색", empty: "검색 결과가 없어요." },
+  en: { title: "Cultural Styles", description: "Explore clothing that carries the culture and stories of each country.", source: "Photo source", search: "Search country or outfit", empty: "No styles found." },
+  my: { title: "နိုင်ငံအလိုက် ယဉ်ကျေးမှုဝတ်စုံ", description: "နိုင်ငံတစ်ခုချင်းစီ၏ ယဉ်ကျေးမှုနှင့် ဇာတ်လမ်းများပါသော အဝတ်အစားများကို ကြည့်ပါ။", source: "ဓာတ်ပုံရင်းမြစ်", search: "နိုင်ငံ သို့မဟုတ် ဝတ်စုံ ရှာရန်", empty: "ရှာမတွေ့ပါ။" },
+  vi: { title: "Trang phục văn hóa", description: "Khám phá trang phục mang văn hóa và câu chuyện của từng quốc gia.", source: "Nguồn ảnh", search: "Tìm quốc gia hoặc trang phục", empty: "Không tìm thấy kết quả." },
+  ja: { title: "国別カルチャースタイル", description: "それぞれの国の文化と物語が込められた服を写真で見てみましょう。", source: "写真出典", search: "国名・衣装名で検索", empty: "検索結果がありません。" },
+  zh: { title: "各国文化服饰", description: "通过照片探索承载各国文化与故事的服装。", source: "图片来源", search: "搜索国家或服饰", empty: "没有找到结果。" },
 };
 
 export default function Home() {
@@ -50,6 +85,7 @@ export default function Home() {
   const [activeView, setActiveView] = useState<"home" | "closet" | "countryStyles">("home");
   const [closetPhotos, setClosetPhotos] = useState<Array<{ id: string; src: string; name: string }>>([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [countrySearch, setCountrySearch] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [language, setLanguage] = useState<Language>("ko");
@@ -64,6 +100,13 @@ export default function Home() {
   const [weather, setWeather] = useState("");
   const [desiredStyle, setDesiredStyle] = useState("");
   const [customStyle, setCustomStyle] = useState("");
+  const normalizedCountrySearch = countrySearch.trim().toLocaleLowerCase();
+  const filteredCountryStyles = countryStyleItems.filter((item) =>
+    [item.outfit, ...Object.values(item.country)]
+      .join(" ")
+      .toLocaleLowerCase()
+      .includes(normalizedCountrySearch),
+  );
 
   const handlePhotoUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files ?? []).filter((file) => file.type.startsWith("image/"));
@@ -461,19 +504,30 @@ export default function Home() {
           <span>CULTURE LOOKBOOK</span>
           <h1>{countryStyleCopy[language].title}</h1>
           <p>{countryStyleCopy[language].description}</p>
+          <label className="country-style-search">
+            <span aria-hidden="true">⌕</span>
+            <input
+              type="search"
+              value={countrySearch}
+              placeholder={countryStyleCopy[language].search}
+              aria-label={countryStyleCopy[language].search}
+              onChange={(event) => setCountrySearch(event.target.value)}
+            />
+          </label>
         </header>
 
-        <div className="country-style-grid">
-          {countryStyleItems.map((item, index) => (
+        {filteredCountryStyles.length > 0 ? (
+          <div className="country-style-grid">
+          {filteredCountryStyles.map((item) => (
             <article className="country-style-card" key={item.outfit}>
               <Image
                 src={item.image}
-                alt={`${s.countries[index]} ${item.outfit}`}
+                alt={`${item.country[language]} ${item.outfit}`}
                 width={960}
                 height={1200}
               />
               <div>
-                <span>{s.countries[index]}</span>
+                <span>{item.country[language]}</span>
                 <h2>{item.outfit}</h2>
                 <a href={item.source} target="_blank" rel="noreferrer">
                   {countryStyleCopy[language].source} · Wikimedia Commons
@@ -481,7 +535,10 @@ export default function Home() {
               </div>
             </article>
           ))}
-        </div>
+          </div>
+        ) : (
+          <p className="country-style-empty">{countryStyleCopy[language].empty}</p>
+        )}
       </section>
     </main>
   );
