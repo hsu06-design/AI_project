@@ -204,6 +204,50 @@ h1 {
   outline-offset: 3px;
 }
 
+.detail-fields {
+  display: grid;
+  gap: 22px;
+}
+
+.field-label,
+.detail-fields fieldset {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+.detail-fields legend {
+  margin-bottom: 9px;
+}
+
+.field-label input,
+.field-label select {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid #d9cab9;
+  border-radius: 3px;
+  background: #fffdf8;
+  color: var(--brown);
+  font: inherit;
+  font-size: 14px;
+}
+
+.field-label input:focus,
+.field-label select:focus {
+  outline: 2px solid #765f50;
+  outline-offset: 3px;
+}
+
+.season-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 @media (max-width: 520px) {
   .choice-sheet {
     padding: 28px 20px 24px;
@@ -211,5 +255,9 @@ h1 {
 
   .choice-grid {
     grid-template-columns: 1fr;
+  }
+
+  .season-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

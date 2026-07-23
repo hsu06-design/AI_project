@@ -14,6 +14,10 @@ export default function Home() {
   const [country, setCountry] = useState("");
   const [customCountry, setCustomCountry] = useState("");
   const countries = ["한국", "일본", "프랑스", "인도", "태국"];
+  const [travelDate, setTravelDate] = useState("");
+  const [season, setSeason] = useState("");
+  const [weather, setWeather] = useState("");
+  const seasons = ["봄", "여름", "가을", "겨울"];
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -149,6 +153,53 @@ export default function Home() {
         </label>
         <div className="choice-note" aria-live="polite">
           {country ? `${country}의 분위기와 문화를 살펴볼게요.` : "나라 선택을 기다리고 있어요."}
+        </div>
+      </section>
+
+      <section className="choice-sheet" aria-labelledby="weather-title">
+        <span className="step-mark">03</span>
+        <h2 id="weather-title">언제, 어떤 날씨에 입을까요?</h2>
+        <p>날씨에 편안한 소재와 겹쳐 입기를 추천할게요.</p>
+        <div className="detail-fields">
+          <label className="field-label">
+            <span>날짜</span>
+            <input
+              type="date"
+              value={travelDate}
+              onChange={(event) => setTravelDate(event.target.value)}
+            />
+          </label>
+          <fieldset>
+            <legend>계절</legend>
+            <div className="choice-grid season-grid">
+              {seasons.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  aria-pressed={season === item}
+                  onClick={() => setSeason(item)}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+          </fieldset>
+          <label className="field-label">
+            <span>예상 날씨</span>
+            <select value={weather} onChange={(event) => setWeather(event.target.value)}>
+              <option value="">골라주세요</option>
+              <option value="맑고 따뜻함">맑고 따뜻함</option>
+              <option value="덥고 습함">덥고 습함</option>
+              <option value="선선함">선선함</option>
+              <option value="춥고 건조함">춥고 건조함</option>
+              <option value="비 또는 눈">비 또는 눈</option>
+            </select>
+          </label>
+        </div>
+        <div className="choice-note" aria-live="polite">
+          {travelDate || season || weather
+            ? [travelDate, season, weather].filter(Boolean).join(" · ")
+            : "날짜와 날씨 선택을 기다리고 있어요."}
         </div>
       </section>
     </main>
