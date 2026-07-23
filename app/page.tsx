@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { type ChangeEvent, useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Card, CardContent } from "@/components/ui/card";
@@ -10,6 +10,8 @@ import { selectionTranslations } from "./selection-translations";
 
 export default function Home() {
   const pageRef = useRef<HTMLElement>(null);
+  const [activeView, setActiveView] = useState<"home" | "closet">("home");
+  const [closetPhotos, setClosetPhotos] = useState<Array<{ id: string; src: string; name: string }>>([]);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [language, setLanguage] = useState<Language>("ko");
@@ -24,6 +26,27 @@ export default function Home() {
   const [weather, setWeather] = useState("");
   const [desiredStyle, setDesiredStyle] = useState("");
   const [customStyle, setCustomStyle] = useState("");
+
+  const handlePhotoUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files ?? []).filter((file) => file.type.startsWith("image/"));
+    const newPhotos = await Promise.all(
+      files.map(
+        (file, index) =>
+          new Promise<{ id: string; src: string; name: string }>((resolve) => {
+            const reader = new FileReader();
+            reader.onload = () =>
+              resolve({
+                id: `${file.name}-${file.lastModified}-${index}`,
+                src: String(reader.result),
+                name: file.name,
+              });
+            reader.readAsDataURL(file);
+          }),
+      ),
+    );
+    setClosetPhotos((current) => [...current, ...newPhotos]);
+    event.target.value = "";
+  };
 
   useEffect(() => {
     document.documentElement.lang = language;
@@ -84,9 +107,21 @@ export default function Home() {
       <nav className="top-nav" aria-label="주요 메뉴">
         <a className="nav-brand" href="#home">{t.brand}</a>
         <div className="nav-links">
-          <a href="#home" aria-current="page">{t.home}</a>
+          <a
+            href="#home"
+            aria-current={activeView === "home" ? "page" : undefined}
+            onClick={() => setActiveView("home")}
+          >
+            {t.home}
+          </a>
           <a href="#recommendation">{t.recommendation}</a>
-          <a href="#closet">{t.closet}</a>
+          <a
+            href="#closet-page"
+            aria-current={activeView === "closet" ? "page" : undefined}
+            onClick={() => setActiveView("closet")}
+          >
+            {t.closet}
+          </a>
           <a href="#country">{t.countryStyle}</a>
           <a href="#saved-outfits">{t.saved}</a>
         </div>
@@ -148,6 +183,7 @@ export default function Home() {
         </aside>
       )}
 
+      <div hidden={activeView !== "home"}>
       <section id="home" className="hero-layout">
         <header>
           <p className="eyebrow">MY CLOSET DIARY</p>
@@ -325,6 +361,44 @@ export default function Home() {
         <div className="choice-note" aria-live="polite">
           {desiredStyle ? s.styleSelected.replace("{value}", desiredStyle) : s.styleWaiting}
         </div>
+      </section>
+      </div>
+
+      <section id="closet-page" className="closet-page" hidden={activeView !== "closet"}>
+        <div className="closet-page-heading">
+          <div>
+            <span>MY WARDROBE</span>
+            <h1>{t.closetPageTitle}</h1>
+            <p>{t.closetPageDescription}</p>
+          </div>
+          <label className="photo-upload-button">
+            {t.addPhotos}
+            <input
+              type="file"
+              accept="image/*"
+              capture="environment"
+              multiple
+              onChange={handlePhotoUpload}
+            />
+          </label>
+        </div>
+
+        {closetPhotos.length === 0 ? (
+          <div className="closet-empty">
+            <span>+</span>
+            <p>{t.closetEmpty}</p>
+            <small>{t.uploadHint}</small>
+          </div>
+        ) : (
+          <div className="closet-photo-grid">
+            {closetPhotos.map((photo) => (
+              <figure key={photo.id}>
+                <img src={photo.src} alt={photo.name} />
+                <figcaption>{photo.name}</figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
       </section>
     </main>
   );
