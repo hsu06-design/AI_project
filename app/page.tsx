@@ -1,15 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Card, CardContent } from "@/components/ui/card";
+import { translations, type Language } from "./translations";
 
 export default function Home() {
   const pageRef = useRef<HTMLElement>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [language, setLanguage] = useState<Language>("ko");
+  const t = translations[language];
   const [destination, setDestination] = useState("");
   const [customDestination, setCustomDestination] = useState("");
   const destinations = ["여행", "축제", "결혼식", "데이트", "출근·학교"];
@@ -23,6 +26,10 @@ export default function Home() {
   const [desiredStyle, setDesiredStyle] = useState("");
   const [customStyle, setCustomStyle] = useState("");
   const styles = ["편안한", "단정한", "화려한", "귀여운", "시크한"];
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -69,13 +76,13 @@ export default function Home() {
   return (
     <main ref={pageRef} className={`home${isDark ? " dark-mode" : ""}`}>
       <nav className="top-nav" aria-label="주요 메뉴">
-        <a className="nav-brand" href="#home">오늘, 뭐 입지</a>
+        <a className="nav-brand" href="#home">{t.brand}</a>
         <div className="nav-links">
-          <a href="#home" aria-current="page">홈</a>
-          <a href="#recommendation">코디 추천</a>
-          <a href="#closet">내 옷장</a>
-          <a href="#country">나라별 스타일</a>
-          <a href="#saved-outfits">저장한 코디</a>
+          <a href="#home" aria-current="page">{t.home}</a>
+          <a href="#recommendation">{t.recommendation}</a>
+          <a href="#closet">{t.closet}</a>
+          <a href="#country">{t.countryStyle}</a>
+          <a href="#saved-outfits">{t.saved}</a>
         </div>
         <button
           className="settings-tab"
@@ -93,21 +100,29 @@ export default function Home() {
           <div className="settings-heading">
             <div>
               <span>SETTING</span>
-              <h2>나에게 맞게 바꾸기</h2>
+              <h2>{t.personalize}</h2>
             </div>
             <button type="button" aria-label="설정 닫기" onClick={() => setSettingsOpen(false)}>
-              닫기
+              {t.close}
             </button>
           </div>
           <div className="setting-row">
-            <label htmlFor="language-setting">언어</label>
-            <select id="language-setting" defaultValue="ko">
+            <label htmlFor="language-setting">{t.language}</label>
+            <select
+              id="language-setting"
+              value={language}
+              onChange={(event) => setLanguage(event.target.value as Language)}
+            >
               <option value="ko">한국어</option>
               <option value="en">English</option>
+              <option value="my">မြန်မာဘာသာ</option>
+              <option value="vi">Tiếng Việt</option>
+              <option value="ja">日本語</option>
+              <option value="zh">中文</option>
             </select>
           </div>
           <div className="setting-row">
-            <span>화면 모드</span>
+            <span>{t.displayMode}</span>
             <div className="mode-options" aria-label="화면 모드 선택">
               <button type="button" aria-pressed={!isDark} onClick={() => setIsDark(false)}>
                 DAY
@@ -119,10 +134,10 @@ export default function Home() {
           </div>
           <div className="setting-row account-row">
             <div>
-              <span>내 계정</span>
-              <p>저장한 코디와 내 옷장을 관리해요.</p>
+              <span>{t.account}</span>
+              <p>{t.accountDescription}</p>
             </div>
-            <button type="button">계정 열기</button>
+            <button type="button">{t.openAccount}</button>
           </div>
         </aside>
       )}
@@ -130,8 +145,8 @@ export default function Home() {
       <section id="home" className="hero-layout">
         <header>
           <p className="eyebrow">MY CLOSET DIARY</p>
-          <h1>오늘,<br />뭐 입지</h1>
-          <p className="subtitle">내 옷장에서 찾는 오늘의 코디</p>
+          <h1>{t.heroTitle}</h1>
+          <p className="subtitle">{t.subtitle}</p>
           <span className="hero-index">01 — DAILY LOOK</span>
         </header>
 
