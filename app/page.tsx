@@ -66,7 +66,19 @@ export default function Home() {
 
   return (
     <main ref={pageRef} className="home">
-      <section className="hero-layout">
+      <nav className="top-nav" aria-label="주요 메뉴">
+        <a className="nav-brand" href="#home">오늘, 뭐 입지</a>
+        <div className="nav-links">
+          <a href="#home" aria-current="page">홈</a>
+          <a href="#recommendation">코디 추천</a>
+          <a href="#closet">내 옷장</a>
+          <a href="#country">나라별 스타일</a>
+          <a href="#saved-outfits">저장한 코디</a>
+        </div>
+        <button className="settings-tab" type="button">SETTING</button>
+      </nav>
+
+      <section id="home" className="hero-layout">
         <header>
           <p className="eyebrow">MY CLOSET DIARY</p>
           <h1>오늘,<br />뭐 입지</h1>
@@ -74,7 +86,7 @@ export default function Home() {
           <span className="hero-index">01 — DAILY LOOK</span>
         </header>
 
-        <Card className="closet-card">
+        <Card id="closet" className="closet-card">
           <Image
             src="/cream-tie-blouse.png"
             alt="크림색 리본 블라우스"
@@ -90,7 +102,7 @@ export default function Home() {
         </Card>
       </section>
 
-      <section className="choice-sheet" aria-labelledby="destination-title">
+      <section id="recommendation" className="choice-sheet" aria-labelledby="destination-title">
         <span className="step-mark">01</span>
         <h2 id="destination-title">어디에 갈 예정인가요?</h2>
         <p>오늘의 장소를 하나 골라주세요.</p>
@@ -126,7 +138,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="choice-sheet" aria-labelledby="country-title">
+      <section id="country" className="choice-sheet" aria-labelledby="country-title">
         <span className="step-mark">02</span>
         <h2 id="country-title">어느 나라에서 입을까요?</h2>
         <p>현지 분위기와 문화를 코디에 반영할게요.</p>
@@ -209,7 +221,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="choice-sheet" aria-labelledby="style-title">
+      <section id="saved-outfits" className="choice-sheet" aria-labelledby="style-title">
         <span className="step-mark">04</span>
         <h2 id="style-title">어떤 분위기로 입고 싶나요?</h2>
         <p>오늘 표현하고 싶은 느낌을 하나 골라주세요.</p>
