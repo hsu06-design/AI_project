@@ -24,6 +24,67 @@ body {
 .home {
   min-height: 100vh;
   padding: 0 0 110px;
+  transition: background-color 260ms ease, color 260ms ease;
+}
+
+.home.dark-mode {
+  --cream: #1d1a18;
+  --brown: #eee5da;
+  --muted: #b9a99a;
+  background-color: var(--cream);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px);
+  color: var(--brown);
+}
+
+.dark-mode .top-nav {
+  border-color: rgba(238, 229, 218, 0.18);
+  background: rgba(29, 26, 24, 0.94);
+}
+
+.dark-mode .closet-card {
+  background: #2b2622;
+}
+
+.dark-mode .choice-sheet,
+.dark-mode .settings-panel {
+  border-color: #564b43;
+  background: rgba(39, 34, 31, 0.96);
+  box-shadow: 3px 5px 0 #332d29, 0 24px 70px rgba(0, 0, 0, 0.32);
+}
+
+.dark-mode .choice-grid button,
+.dark-mode .field-label input,
+.dark-mode .field-label select,
+.dark-mode .setting-row select {
+  border-color: #65594f;
+  background: #25211f;
+  color: var(--brown);
+}
+
+.dark-mode .choice-grid button:hover,
+.dark-mode .choice-grid button[aria-pressed="true"] {
+  border-color: #b9a99a;
+  background: #4b4038;
+}
+
+.dark-mode .settings-heading,
+.dark-mode .setting-row {
+  border-color: #564b43;
+}
+
+.dark-mode .settings-heading button,
+.dark-mode .mode-options button,
+.dark-mode .account-row button,
+.dark-mode .settings-tab {
+  border-color: #75665b;
+  color: var(--brown);
+}
+
+.dark-mode .mode-options button[aria-pressed="true"] {
+  background: var(--brown);
+  color: #1d1a18;
 }
 
 .top-nav {

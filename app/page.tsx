@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 export default function Home() {
   const pageRef = useRef<HTMLElement>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
   const [destination, setDestination] = useState("");
   const [customDestination, setCustomDestination] = useState("");
   const destinations = ["여행", "축제", "결혼식", "데이트", "출근·학교"];
@@ -66,7 +67,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main ref={pageRef} className="home">
+    <main ref={pageRef} className={`home${isDark ? " dark-mode" : ""}`}>
       <nav className="top-nav" aria-label="주요 메뉴">
         <a className="nav-brand" href="#home">오늘, 뭐 입지</a>
         <div className="nav-links">
@@ -108,8 +109,12 @@ export default function Home() {
           <div className="setting-row">
             <span>화면 모드</span>
             <div className="mode-options" aria-label="화면 모드 선택">
-              <button type="button" aria-pressed="true">DAY</button>
-              <button type="button" aria-pressed="false">NIGHT</button>
+              <button type="button" aria-pressed={!isDark} onClick={() => setIsDark(false)}>
+                DAY
+              </button>
+              <button type="button" aria-pressed={isDark} onClick={() => setIsDark(true)}>
+                NIGHT
+              </button>
             </div>
           </div>
           <div className="setting-row account-row">
