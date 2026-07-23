@@ -11,6 +11,9 @@ export default function Home() {
   const [destination, setDestination] = useState("");
   const [customDestination, setCustomDestination] = useState("");
   const destinations = ["여행", "축제", "결혼식", "데이트", "출근·학교"];
+  const [country, setCountry] = useState("");
+  const [customCountry, setCustomCountry] = useState("");
+  const countries = ["한국", "일본", "프랑스", "인도", "태국"];
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -37,15 +40,17 @@ export default function Home() {
         },
       });
 
-      gsap.from(".choice-sheet", {
-        opacity: 0,
-        duration: 1.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".choice-sheet",
-          start: "top 82%",
-          once: true,
-        },
+      gsap.utils.toArray<HTMLElement>(".choice-sheet").forEach((sheet) => {
+        gsap.from(sheet, {
+          opacity: 0,
+          duration: 1.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sheet,
+            start: "top 82%",
+            once: true,
+          },
+        });
       });
     }, pageRef);
 
@@ -108,6 +113,42 @@ export default function Home() {
         </label>
         <div className="choice-note" aria-live="polite">
           {destination ? `${destination}에 어울리는 옷을 찾아볼게요.` : "선택을 기다리고 있어요."}
+        </div>
+      </section>
+
+      <section className="choice-sheet" aria-labelledby="country-title">
+        <span className="step-mark">02</span>
+        <h2 id="country-title">어느 나라에서 입을까요?</h2>
+        <p>현지 분위기와 문화를 코디에 반영할게요.</p>
+        <div className="choice-grid">
+          {countries.map((item) => (
+            <button
+              key={item}
+              type="button"
+              aria-pressed={country === item}
+              onClick={() => {
+                setCountry(item);
+                setCustomCountry("");
+              }}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+        <label className="custom-choice">
+          <span>다른 나라가 있다면</span>
+          <input
+            type="text"
+            value={customCountry}
+            placeholder="예: 이탈리아, 베트남, 미국"
+            onChange={(event) => {
+              setCustomCountry(event.target.value);
+              setCountry(event.target.value.trim());
+            }}
+          />
+        </label>
+        <div className="choice-note" aria-live="polite">
+          {country ? `${country}의 분위기와 문화를 살펴볼게요.` : "나라 선택을 기다리고 있어요."}
         </div>
       </section>
     </main>
