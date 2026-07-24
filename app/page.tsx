@@ -140,6 +140,15 @@ const countryStyleCopy: Record<Language, { title: string; description: string; s
   zh: { title: "各国文化服饰", description: "通过照片探索承载各国文化与故事的服装。", source: "图片来源", search: "搜索国家或服饰", empty: "没有找到结果。" },
 };
 
+const recommendationCopy: Record<Language, { button: string; loading: string; title: string; error: string }> = {
+  ko: { button: "AI 코디 추천받기", loading: "코디를 고르는 중...", title: "오늘의 추천 코디", error: "추천을 만들지 못했어요. 잠시 후 다시 눌러주세요." },
+  en: { button: "Get AI outfit", loading: "Choosing your outfit...", title: "Today’s outfit", error: "We couldn’t create an outfit. Please try again." },
+  my: { button: "AI ဝတ်စုံအကြံပြုချက် ရယူရန်", loading: "ဝတ်စုံရွေးနေသည်...", title: "ယနေ့အတွက် ဝတ်စုံ", error: "အကြံပြုချက် မပြုလုပ်နိုင်ပါ။ ထပ်မံကြိုးစားပါ။" },
+  vi: { button: "Nhận gợi ý phối đồ AI", loading: "Đang chọn trang phục...", title: "Phối đồ hôm nay", error: "Chưa thể tạo gợi ý. Hãy thử lại." },
+  ja: { button: "AIコーデを提案", loading: "コーデを選んでいます...", title: "今日のおすすめコーデ", error: "提案を作成できませんでした。もう一度お試しください。" },
+  zh: { button: "获取 AI 穿搭推荐", loading: "正在挑选穿搭...", title: "今日推荐穿搭", error: "暂时无法生成推荐，请重试。" },
+};
+
 export default function Home() {
   const pageRef = useRef<HTMLElement>(null);
   const [activeView, setActiveView] = useState<"home" | "closet" | "countryStyles">("home");
@@ -160,6 +169,9 @@ export default function Home() {
   const [weather, setWeather] = useState("");
   const [desiredStyle, setDesiredStyle] = useState("");
   const [customStyle, setCustomStyle] = useState("");
+  const [aiRecommendation, setAiRecommendation] = useState("");
+  const [isRecommending, setIsRecommending] = useState(false);
+  const [recommendationError, setRecommendationError] = useState("");
   const normalizedCountrySearch = countrySearch.trim().toLocaleLowerCase();
   const filteredCountryStyles = countryStyleItems.filter((item) =>
     [item.outfit, ...Object.values(item.country)]
@@ -167,6 +179,35 @@ export default function Home() {
       .toLocaleLowerCase()
       .includes(normalizedCountrySearch),
   );
+
+  const handleRecommendation = async () => {
+    setIsRecommending(true);
+    setRecommendationError("");
+    setAiRecommendation("");
+
+    try {
+      const response = await fetch("/api/recommendation", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          destination,
+          country,
+          travelDate,
+          season,
+          weather,
+          desiredStyle,
+          language,
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.recommendation) throw new Error("Recommendation failed");
+      setAiRecommendation(data.recommendation);
+    } catch {
+      setRecommendationError(recommendationCopy[language].error);
+    } finally {
+      setIsRecommending(false);
+    }
+  };
 
   const handlePhotoUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files ?? []).filter((file) => file.type.startsWith("image/"));
@@ -514,6 +555,21 @@ export default function Home() {
         <div className="choice-note" aria-live="polite">
           {desiredStyle ? s.styleSelected.replace("{value}", desiredStyle) : s.styleWaiting}
         </div>
+        <button
+          className="recommendation-button"
+          type="button"
+          disabled={isRecommending}
+          onClick={handleRecommendation}
+        >
+          {isRecommending ? recommendationCopy[language].loading : recommendationCopy[language].button}
+        </button>
+        {(aiRecommendation || recommendationError) && (
+          <article className="recommendation-result" aria-live="polite">
+            <span>GEMINI STYLIST</span>
+            <h3>{recommendationCopy[language].title}</h3>
+            <p>{aiRecommendation || recommendationError}</p>
+          </article>
+        )}
       </section>
       </div>
 
